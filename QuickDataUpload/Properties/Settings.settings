@@ -1,0 +1,45 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="QDU.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="DomainName" Type="System.String" Scope="User">
+      <Value Profile="(Default)">haveachin.de</Value>
+    </Setting>
+    <Setting Name="IPString" Type="System.String" Scope="User">
+      <Value Profile="(Default)">127.0.0.1</Value>
+    </Setting>
+    <Setting Name="Port" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">1337</Value>
+    </Setting>
+    <Setting Name="URL" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="Online" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="ToDisk" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="ToClipboard" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="Autostart" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="hk1" Type="System.String" Scope="User">
+      <Value Profile="(Default)">0;0;0:False</Value>
+    </Setting>
+    <Setting Name="hk2" Type="System.String" Scope="User">
+      <Value Profile="(Default)">0;0;0:False</Value>
+    </Setting>
+    <Setting Name="hk3" Type="System.String" Scope="User">
+      <Value Profile="(Default)">0;0;0:False</Value>
+    </Setting>
+    <Setting Name="hk4" Type="System.String" Scope="User">
+      <Value Profile="(Default)">0;0;0:False</Value>
+    </Setting>
+    <Setting Name="hk5" Type="System.String" Scope="User">
+      <Value Profile="(Default)">0;0;0:False</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>
