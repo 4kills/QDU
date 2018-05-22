@@ -50,7 +50,8 @@ namespace QuickDataUpload
             if (rect.Width == 0 || rect.Height == 0) return false;
             
             // erstellt neue bitmap mit der größe des rechtecks
-            BmpSS = new Bitmap(rect.Width, rect.Height, PixelFormat.Format32bppArgb);
+            BmpSS = new Bitmap(rect.Width, rect.Height, PixelFormat.Format24bppRgb);
+            
 
             // benutzt graphics um auf die bitmap zu zeichnen
             using (Graphics g = Graphics.FromImage(BmpSS))
