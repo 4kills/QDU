@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
 using QDU.Properties;
+using System.Reflection;
 
 namespace QuickDataUpload
 {
@@ -129,6 +130,15 @@ namespace QuickDataUpload
             Settings.Default.Online = false; Settings.Default.ToClipboard = true;
             Settings.Default.ToDisk = false; Settings.Default.Save();
         }
-        #endregion 
+        #endregion
+
+        private void TrayIcon_MouseUp(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Left)
+            {
+                MethodInfo mi = typeof(NotifyIcon).GetMethod("ShowContextMenu", BindingFlags.Instance | BindingFlags.NonPublic);
+                mi.Invoke(TrayIcon, null);
+            }
+        }
     }
 }

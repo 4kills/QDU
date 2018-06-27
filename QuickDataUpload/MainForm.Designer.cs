@@ -46,6 +46,7 @@
             this.TrayIcon.Icon = ((System.Drawing.Icon)(resources.GetObject("TrayIcon.Icon")));
             this.TrayIcon.Text = "QuickUpload";
             this.TrayIcon.Visible = true;
+            this.TrayIcon.MouseUp += new System.Windows.Forms.MouseEventHandler(this.TrayIcon_MouseUp);
             // 
             // TrayContextMenuStrip
             // 
