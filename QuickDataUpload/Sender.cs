@@ -4,6 +4,7 @@ using System.Net.Sockets;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.Windows.Forms;
+using QDU.Properties;
 
 namespace QuickDataUpload
 {
@@ -30,10 +31,18 @@ namespace QuickDataUpload
         /// <returns>Gibt true zurück, wenn Vorgang erfolgreich abgeschlossen</returns>
         public static bool SendPic()
         {
+
             success = true;
             socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
             try { socket.Connect(OptionsData.MainHost.IP); } // 192.168.2.118 local pi 
             catch { return false; }
+
+            if (Settings.Default.Token == "null") RequestToken();
+            else { DeclareService(Service.SendPic); RecApproval(); }
+
+
+            SendToken();
+            RecApproval();
             byte[] buffer = ImageToByte(Camera.BmpSS);
             SendMetaData(buffer.Length);
             RecApproval();
@@ -43,16 +52,44 @@ namespace QuickDataUpload
             return success;
         }
 
+        private static void SendToken()
+        {
+            byte[] buffer = new byte[32];
+            var chars = Encoding.ASCII.GetBytes(Settings.Default.Token);
+            for (int i = 0; i < chars.Length; i++) buffer[i] = chars[i];
+            if (socket.Send(buffer, 0, buffer.Length, 0) < buffer.Length) success = false;
+        }
+    
+        private static void RequestToken()
+        {
+            DeclareService(Service.RequestToken);
+
+            string str = Encoding.ASCII.GetString(Receive(32));
+
+            Settings.Default.Token = str;
+            Settings.Default.Save();
+
+            SendApproval();
+        }
+
+        private enum Service : byte
+        {
+            SendPic = 0,
+            RequestToken = 1
+        }
+
+        private static void DeclareService(Service serv)
+        {
+            SendOneByte((byte)serv);
+        }
+
         /// <summary>
         /// Wartet, bis der server-socket dem Client mitteilt, dass er bereit ist für 
         /// weitere Daten. Teil des Übertragungsprotokolls
         /// </summary>
         private static void RecApproval()
         {
-            byte[] buffer = new byte[1];
-            int rec = 0;
-            rec = socket.Receive(buffer, 0, buffer.Length, 0);
-            if (rec < buffer.Length) success = false;
+            Receive(1);
         }
 
         /// <summary>
@@ -61,8 +98,24 @@ namespace QuickDataUpload
         /// </summary>
         private static void SendApproval()
         {
-            byte[] buffer = new byte[1] { 1 };
+            SendOneByte(1);
+        }
+
+        private static void SendOneByte(byte num)
+        {
+            byte[] buffer = new byte[1] { num };
             if (socket.Send(buffer, 0, buffer.Length, 0) < buffer.Length) success = false;
+        }
+
+        private static byte[] Receive (int size)
+        {
+            byte[] buffer = new byte[size];
+            int rec = 0;
+            while (rec < size)
+            {
+                rec += socket.Receive(buffer);
+            }
+            return buffer;
         }
 
         /// <summary>
@@ -71,18 +124,11 @@ namespace QuickDataUpload
         /// </summary>
         private static void ReceiveURL()
         {
-            byte[] buffer = new byte[1];
-            int rec = 0;
-            rec = socket.Receive(buffer, 0, buffer.Length, 0);
-            if (rec < buffer.Length) success = false;
+            byte size = Receive(1)[0];
 
             SendApproval();
-
-            byte[] buffer2 = new byte[buffer[0]];
-            int rec2 = 0;
-            rec2 = socket.Receive(buffer2, 0, buffer2.Length, 0);
-            if (rec2 < buffer.Length) success = false;
-            string str = Encoding.ASCII.GetString(buffer2);
+            
+            string str = Encoding.ASCII.GetString(Receive(size));
 
             try
             {

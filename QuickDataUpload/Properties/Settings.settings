@@ -41,5 +41,8 @@
     <Setting Name="hk5" Type="System.String" Scope="User">
       <Value Profile="(Default)">0;0;0:False</Value>
     </Setting>
+    <Setting Name="Token" Type="System.String" Scope="User">
+      <Value Profile="(Default)">null</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

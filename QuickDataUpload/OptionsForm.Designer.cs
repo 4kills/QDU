@@ -41,6 +41,8 @@
             this.btSave = new System.Windows.Forms.Button();
             this.btKeybinds = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.lbToken = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -128,7 +130,7 @@
             // chbAutostart
             // 
             this.chbAutostart.AutoSize = true;
-            this.chbAutostart.Location = new System.Drawing.Point(12, 222);
+            this.chbAutostart.Location = new System.Drawing.Point(12, 251);
             this.chbAutostart.Name = "chbAutostart";
             this.chbAutostart.Size = new System.Drawing.Size(117, 17);
             this.chbAutostart.TabIndex = 5;
@@ -138,7 +140,7 @@
             // 
             // btSave
             // 
-            this.btSave.Location = new System.Drawing.Point(197, 226);
+            this.btSave.Location = new System.Drawing.Point(197, 247);
             this.btSave.Name = "btSave";
             this.btSave.Size = new System.Drawing.Size(75, 23);
             this.btSave.TabIndex = 6;
@@ -165,11 +167,31 @@
             this.label1.TabIndex = 8;
             this.label1.Text = "Port:";
             // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(12, 220);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(84, 13);
+            this.label2.TabIndex = 9;
+            this.label2.Text = "Account Token:";
+            // 
+            // lbToken
+            // 
+            this.lbToken.AutoSize = true;
+            this.lbToken.Location = new System.Drawing.Point(102, 220);
+            this.lbToken.Name = "lbToken";
+            this.lbToken.Size = new System.Drawing.Size(116, 13);
+            this.lbToken.TabIndex = 10;
+            this.lbToken.Text = "Sets when using online";
+            // 
             // OptionsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(284, 261);
+            this.ClientSize = new System.Drawing.Size(284, 280);
+            this.Controls.Add(this.lbToken);
+            this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.btKeybinds);
             this.Controls.Add(this.btSave);
@@ -203,5 +225,7 @@
         private System.Windows.Forms.Button btSave;
         private System.Windows.Forms.Button btKeybinds;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label lbToken;
     }
 }

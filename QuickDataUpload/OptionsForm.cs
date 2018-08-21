@@ -45,6 +45,8 @@ namespace QuickDataUpload
             tbConnection.Text = (Settings.Default.URL) ? Settings.Default.DomainName :
                 Settings.Default.IPString;
             tbPort.Text = Settings.Default.Port.ToString();
+            if (Settings.Default.Token != "null") lbToken.Text = Settings.Default.Token;
+            else lbToken.Text = "is set when using 'online'";
         }
 
         /// <summary>
