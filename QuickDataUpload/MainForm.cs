@@ -74,7 +74,7 @@ namespace QuickDataUpload
             if (Settings.Default.Token == "null" || Settings.Default.Token == "") return;
             try
             {
-                System.Diagnostics.Process.Start("http://" + OptionsData.MainHost.DomainName + "/?me=" + Settings.Default.Token);
+                System.Diagnostics.Process.Start($"http://{OptionsData.MainHost.DomainName}/?me={Settings.Default.Token}");
             }
             catch { }
         }

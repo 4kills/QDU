@@ -54,7 +54,7 @@ namespace QuickDataUpload
 
         private static void SendToken()
         {
-            byte[] buffer = new byte[32];
+            byte[] buffer = new byte[36];
             var chars = Encoding.ASCII.GetBytes(Settings.Default.Token);
             for (int i = 0; i < chars.Length; i++) buffer[i] = chars[i];
             if (socket.Send(buffer, 0, buffer.Length, 0) < buffer.Length) success = false;
@@ -64,7 +64,7 @@ namespace QuickDataUpload
         {
             DeclareService(Service.RequestToken);
 
-            string str = Encoding.ASCII.GetString(Receive(32));
+            string str = Encoding.ASCII.GetString(Receive(36));
 
             Settings.Default.Token = str;
             Settings.Default.Save();
