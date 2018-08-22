@@ -36,6 +36,7 @@
             this.AreaMenuStrip = new System.Windows.Forms.ToolStripMenuItem();
             this.OptionsMenuStrip = new System.Windows.Forms.ToolStripMenuItem();
             this.ExitMenuStrip = new System.Windows.Forms.ToolStripMenuItem();
+            this.ViewImgsMenuStrip = new System.Windows.Forms.ToolStripMenuItem();
             this.TrayContextMenuStrip.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -53,35 +54,42 @@
             this.TrayContextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.FullMenuStrip,
             this.AreaMenuStrip,
+            this.ViewImgsMenuStrip,
             this.OptionsMenuStrip,
             this.ExitMenuStrip});
             this.TrayContextMenuStrip.Name = "TrayContextMenuStrip";
-            this.TrayContextMenuStrip.Size = new System.Drawing.Size(144, 92);
+            this.TrayContextMenuStrip.Size = new System.Drawing.Size(163, 136);
             this.TrayContextMenuStrip.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.TrayContextMenuStrip_ItemClicked);
             // 
             // FullMenuStrip
             // 
             this.FullMenuStrip.Name = "FullMenuStrip";
-            this.FullMenuStrip.Size = new System.Drawing.Size(143, 22);
+            this.FullMenuStrip.Size = new System.Drawing.Size(162, 22);
             this.FullMenuStrip.Text = "Capture All";
             // 
             // AreaMenuStrip
             // 
             this.AreaMenuStrip.Name = "AreaMenuStrip";
-            this.AreaMenuStrip.Size = new System.Drawing.Size(143, 22);
+            this.AreaMenuStrip.Size = new System.Drawing.Size(162, 22);
             this.AreaMenuStrip.Text = "Capture Area";
             // 
             // OptionsMenuStrip
             // 
             this.OptionsMenuStrip.Name = "OptionsMenuStrip";
-            this.OptionsMenuStrip.Size = new System.Drawing.Size(143, 22);
+            this.OptionsMenuStrip.Size = new System.Drawing.Size(162, 22);
             this.OptionsMenuStrip.Text = "Options";
             // 
             // ExitMenuStrip
             // 
             this.ExitMenuStrip.Name = "ExitMenuStrip";
-            this.ExitMenuStrip.Size = new System.Drawing.Size(143, 22);
+            this.ExitMenuStrip.Size = new System.Drawing.Size(162, 22);
             this.ExitMenuStrip.Text = "Exit";
+            // 
+            // ViewImgsMenuStrip
+            // 
+            this.ViewImgsMenuStrip.Name = "ViewImgsMenuStrip";
+            this.ViewImgsMenuStrip.Size = new System.Drawing.Size(162, 22);
+            this.ViewImgsMenuStrip.Text = "View MyUploads";
             // 
             // MainForm
             // 
@@ -105,6 +113,7 @@
         private System.Windows.Forms.ToolStripMenuItem OptionsMenuStrip;
         private System.Windows.Forms.ToolStripMenuItem AreaMenuStrip;
         private System.Windows.Forms.ToolStripMenuItem FullMenuStrip;
+        private System.Windows.Forms.ToolStripMenuItem ViewImgsMenuStrip;
     }
 }
 

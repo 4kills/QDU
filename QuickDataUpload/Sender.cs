@@ -37,7 +37,7 @@ namespace QuickDataUpload
             try { socket.Connect(OptionsData.MainHost.IP); } // 192.168.2.118 local pi 
             catch { return false; }
 
-            if (Settings.Default.Token == "null") RequestToken();
+            if (Settings.Default.Token == "null" || Settings.Default.Token == "") RequestToken();
             else { DeclareService(Service.SendPic); RecApproval(); }
 
 

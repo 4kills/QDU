@@ -54,16 +54,29 @@ namespace QuickDataUpload
         /// <param name="e">Info zu geclicktem Item</param>
         private void TrayContextMenuStrip_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
         {
-            if (e.ClickedItem == OptionsMenuStrip) oF = new OptionsForm(keyF);//opens options 
+
+            if (e.ClickedItem == AreaMenuStrip) cam = new AreaCamera();//captures area
+
+            else if (e.ClickedItem == FullMenuStrip) cam = new FullCamera();//caputres all
+
+            else if (e.ClickedItem == ViewImgsMenuStrip) ViewImagesOnline();
+
+            else if (e.ClickedItem == OptionsMenuStrip) oF = new OptionsForm(keyF);//opens options 
 
             else if (e.ClickedItem == ExitMenuStrip)
             {
                 TrayIcon.Visible = false; Environment.Exit(0); // exits program
             }
+        }
 
-            else if (e.ClickedItem == AreaMenuStrip) cam = new AreaCamera();//captures area
-
-            else if (e.ClickedItem == FullMenuStrip) cam = new FullCamera();//caputres all
+        private void ViewImagesOnline()
+        {
+            if (Settings.Default.Token == "null" || Settings.Default.Token == "") return;
+            try
+            {
+                System.Diagnostics.Process.Start("http://" + OptionsData.MainHost.DomainName + "/?me=" + Settings.Default.Token);
+            }
+            catch { }
         }
 
         #region Methoden, die bei jeweiliger Tastenkombination ausgeführt werden
