@@ -81,6 +81,8 @@ namespace QuickDataUpload
                 (new Thread(() => (new SoundPlayer(Assembly.GetExecutingAssembly()
                     .GetManifestResourceStream("QDU.upload_sound.wav"))).Play()))
                     .Start();
+                Program.icon.ShowBalloonTip(1000, "Screenshot taken", "Your screenshot was " +
+                    "successfully uploaded to a QDU-server", ToolTipIcon.Info); 
             }
             else if (OptionsData.ToDisk) SaveToDisk();
             else if (OptionsData.ToClipboard)

@@ -34,9 +34,9 @@
             this.TrayContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.FullMenuStrip = new System.Windows.Forms.ToolStripMenuItem();
             this.AreaMenuStrip = new System.Windows.Forms.ToolStripMenuItem();
+            this.ViewImgsMenuStrip = new System.Windows.Forms.ToolStripMenuItem();
             this.OptionsMenuStrip = new System.Windows.Forms.ToolStripMenuItem();
             this.ExitMenuStrip = new System.Windows.Forms.ToolStripMenuItem();
-            this.ViewImgsMenuStrip = new System.Windows.Forms.ToolStripMenuItem();
             this.TrayContextMenuStrip.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -58,7 +58,7 @@
             this.OptionsMenuStrip,
             this.ExitMenuStrip});
             this.TrayContextMenuStrip.Name = "TrayContextMenuStrip";
-            this.TrayContextMenuStrip.Size = new System.Drawing.Size(163, 136);
+            this.TrayContextMenuStrip.Size = new System.Drawing.Size(163, 114);
             this.TrayContextMenuStrip.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.TrayContextMenuStrip_ItemClicked);
             // 
             // FullMenuStrip
@@ -73,6 +73,12 @@
             this.AreaMenuStrip.Size = new System.Drawing.Size(162, 22);
             this.AreaMenuStrip.Text = "Capture Area";
             // 
+            // ViewImgsMenuStrip
+            // 
+            this.ViewImgsMenuStrip.Name = "ViewImgsMenuStrip";
+            this.ViewImgsMenuStrip.Size = new System.Drawing.Size(162, 22);
+            this.ViewImgsMenuStrip.Text = "View MyUploads";
+            // 
             // OptionsMenuStrip
             // 
             this.OptionsMenuStrip.Name = "OptionsMenuStrip";
@@ -84,12 +90,6 @@
             this.ExitMenuStrip.Name = "ExitMenuStrip";
             this.ExitMenuStrip.Size = new System.Drawing.Size(162, 22);
             this.ExitMenuStrip.Text = "Exit";
-            // 
-            // ViewImgsMenuStrip
-            // 
-            this.ViewImgsMenuStrip.Name = "ViewImgsMenuStrip";
-            this.ViewImgsMenuStrip.Size = new System.Drawing.Size(162, 22);
-            this.ViewImgsMenuStrip.Text = "View MyUploads";
             // 
             // MainForm
             // 
@@ -106,14 +106,13 @@
         }
 
         #endregion
-
-        private System.Windows.Forms.NotifyIcon TrayIcon;
         private System.Windows.Forms.ContextMenuStrip TrayContextMenuStrip;
         private System.Windows.Forms.ToolStripMenuItem ExitMenuStrip;
         private System.Windows.Forms.ToolStripMenuItem OptionsMenuStrip;
         private System.Windows.Forms.ToolStripMenuItem AreaMenuStrip;
         private System.Windows.Forms.ToolStripMenuItem FullMenuStrip;
         private System.Windows.Forms.ToolStripMenuItem ViewImgsMenuStrip;
+        internal System.Windows.Forms.NotifyIcon TrayIcon;
     }
 }
 

@@ -3,7 +3,7 @@
   <Profiles />
   <Settings>
     <Setting Name="DomainName" Type="System.String" Scope="User">
-      <Value Profile="(Default)">haveachin.de</Value>
+      <Value Profile="(Default)">qdu.haveachin.de</Value>
     </Setting>
     <Setting Name="IPString" Type="System.String" Scope="User">
       <Value Profile="(Default)">127.0.0.1</Value>

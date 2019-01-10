@@ -25,7 +25,7 @@ namespace QDU.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("haveachin.de")]
+        [global::System.Configuration.DefaultSettingValueAttribute("qdu.haveachin.de")]
         public string DomainName {
             get {
                 return ((string)(this["DomainName"]));
