@@ -28,13 +28,13 @@ namespace QuickDataUpload
         /// und sendet diesem das bild. Der Server stellt das bild online bereit 
         /// und gibt dem Client die URL für das Bild zurück, welche geteilt werden kann
         /// </summary>
-        /// <returns>Gibt true zurück, wenn Vorgang erfolgreich abgeschlossen</returns>
+        /// <returns>Gibt exitcode zurück, wenn Vorgang erfolgreich abgeschlossen</returns>
         public static bool SendPic()
         {
 
             success = true;
             socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-            try { socket.Connect(OptionsData.MainHost.IP); } // 192.168.2.118 local pi 
+            try { socket.Connect(OptionsData.MainHost.IP); } 
             catch { return false; }
 
             if (Settings.Default.Token == "null" || Settings.Default.Token == "") RequestToken();

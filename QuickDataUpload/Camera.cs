@@ -74,7 +74,13 @@ namespace QuickDataUpload
             {
                 // sendet Bild an den Server und erhält URL zurück. 
                 // Sollte etwas schief gehen wird abgebrochen
-                if(!Sender.SendPic()) return;
+                if (!Sender.SendPic())
+                {
+                    Program.icon.ShowBalloonTip(3000, "Connection failed", "Your screenshot was not uploaded " +
+                    "because the client couldn't connect to a QDU-server. Check you server data or " +
+                    "Internet connection", ToolTipIcon.Error);
+                    return; 
+                }
 
                 // spielt einen selbst aufgenommenen ton, wenn der Upload erfolgreich ist, 
                 // damit der benutzer weiß, wann er die URL in der Zwischenablage hat. 
