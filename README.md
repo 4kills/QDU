@@ -1,1 +1,1 @@
-# QDU project start November 24, 2017
+# QDU project started November 24, 2017
