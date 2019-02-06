@@ -101,8 +101,8 @@ namespace QuickDataUpload
         /// <summary>
         /// registers a hotkey with windows
         /// </summary>
-        /// <param name="modifier">Der Modifier Key für den WinHotkey</param>
-        /// <param name="key">Der eigentliche Key </param>
+        /// <param name="modifier">modifier for the WinHotkey</param>
+        /// <param name="key">the actual key </param>
         public void RegisterHotKey(ModifiersKeys modifier, Keys key, HotkeyHandler method)
         {
             _currentId++;

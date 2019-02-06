@@ -10,38 +10,38 @@ using System.Reflection;
 namespace QuickDataUpload
 {
     /// <summary>
-    /// Abstrakte Klasse die als Vorlage für die polymorphen sub-klassen wirkt
+    /// abstract for specific camera implementation 
     /// </summary>
     abstract class Camera 
     {
         #region Attribute 
         
         /// <summary>
-        /// Erster Punkt des Bildes
+        /// start point 
         /// </summary>
         protected Point PtDown;
         /// <summary>
-        /// Zweiter Punkt des Bildes
+        /// end point
         /// </summary>
         protected Point PtUp;
         /// <summary>
-        /// Gemachtes Bild, welches sich im RAM befindet. 
+        /// taken ss residing in memory 
         /// </summary>
         public static Bitmap BmpSS { get; protected set; }
         /// <summary>
-        /// Wird true, wenn das Bild vollständig verarbeitet wurde
+        /// is set when picture is sucessfully taken
         /// </summary>
         public bool ProcedureDone { get; protected set; } = false;
 
         #endregion
 
         /// <summary>
-        /// Speichert den Bereich als Bitmap-Image in den RAM der Camera-Klasse.
+        /// saves the area as bitmap
         /// </summary>
-        /// <returns>returned false, wenn operation misslungen</returns>
+        /// <returns>returns false if method failed</returns>
         protected virtual bool SaveScreenshot()
         {
-            // fehler wenn beide punkte gleich
+            // error if both points are the same
             if (PtDown == PtUp) return false;
 
             double resFactor = CalcScreenRes();
@@ -49,14 +49,14 @@ namespace QuickDataUpload
 
             if (rect.Width == 0 || rect.Height == 0) return false;
             
-            // erstellt neue bitmap mit der größe des rechtecks
+            // creates bitmap with specified hight and width of destination rectangle
             BmpSS = new Bitmap(rect.Width, rect.Height, PixelFormat.Format24bppRgb);
             
 
-            // benutzt graphics um auf die bitmap zu zeichnen
+            // graphics to paint on the bitmap
             using (Graphics g = Graphics.FromImage(BmpSS))
             {
-                // zeichnet ausgewählten bildbereich auf die bitmap
+                // copies chosen area to bitmap
                 g.CopyFromScreen(rect.X, rect.Y, 0, 0,
                     new Size(rect.Size.Width, rect.Size.Height), 
                     CopyPixelOperation.SourceCopy); 
@@ -66,14 +66,13 @@ namespace QuickDataUpload
         }
 
         /// <summary>
-        /// Verarbeitet das gemacht Bild, je nach ausgewähltem Modus
+        /// processes pic depending on chosen mode 
         /// </summary>
         protected void PicProceed()
         {
             if (OptionsData.Online)
             {
-                // sendet Bild an den Server und erhält URL zurück. 
-                // Sollte etwas schief gehen wird abgebrochen
+                // sends pic to the server and receives URL, returns if an error occurs
                 if (!Sender.SendPic())
                 {
                     Program.icon.ShowBalloonTip(3000, "Connection failed", "Your screenshot was not uploaded " +
@@ -82,8 +81,7 @@ namespace QuickDataUpload
                     return; 
                 }
 
-                // spielt einen selbst aufgenommenen ton, wenn der Upload erfolgreich ist, 
-                // damit der benutzer weiß, wann er die URL in der Zwischenablage hat. 
+                // plays a self-recorded sound when sending pic successful, notifying user about url
                 (new Thread(() => (new SoundPlayer(Assembly.GetExecutingAssembly()
                     .GetManifestResourceStream("QDU.upload_sound.wav"))).Play()))
                     .Start();
@@ -93,8 +91,7 @@ namespace QuickDataUpload
             else if (OptionsData.ToDisk) SaveToDisk();
             else if (OptionsData.ToClipboard)
             {
-                // schreibt das bild vom RAM direkt in die Zwischenablage wo es via strg + v
-                // verbreitet werden kann
+                // writes bitmap to clipboard
                 try
                 {
                     Clipboard.SetImage(BmpSS);
@@ -109,27 +106,23 @@ namespace QuickDataUpload
         }
 
         /// <summary>
-        /// Führt nicht spezifischen Bilderstellungs/verfahrens-Code aus
+        /// executes generic snapping 
         /// </summary>
         protected void Snap()
         {
-            if (SaveScreenshot()) PicProceed(); // fährt nur fort, wenn bild erfolgreich gemacht
+            if (SaveScreenshot()) PicProceed(); // proceeds if successful
 
-            BmpSS?.Dispose(); // Bereinigt RAM
-            ProcedureDone = true; // teilt mit, dass der Bilderstellungsprozess beendet wure
-            MemoryManager.MinimizeFootprint();
+            BmpSS?.Dispose(); // purges RAM 
+            ProcedureDone = true; // signalizes the picture is taken
+            MemoryManager.MinimizeFootprint(); // minimizes assigned ram by os 
         }
 
-        // Speichert Bild zur festplatte
+        // saves picture to disk
         #region ToDisk
 
-        /// <summary>
-        /// Der windows-file-dialog der angezeigt wird um das bild zu speichern
-        /// </summary>
         SaveFileDialog fileDiag;
         /// <summary>
-        /// Konfiguriert den SaveFileDialog und zeigt diesen an. Damit kann der Benutzer einen Speicherort
-        /// für das Bild auswählen. 
+        /// configures save file dialogue and opens it. The user can change a location
         /// </summary>
         public void SaveToDisk()
         {
@@ -143,34 +136,33 @@ namespace QuickDataUpload
         }
 
         /// <summary>
-        /// Speichert das Bild an den ausgewählten Speicherort in dem angegebenen Format ab. 
+        /// saves the picture to the specified location in the specified format
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void FileDiag_FileOk(object sender, System.ComponentModel.CancelEventArgs e) // Nur wenn "Speichern" bestätigt -> bug fix
+        private void FileDiag_FileOk(object sender, System.ComponentModel.CancelEventArgs e) 
         {
-            if (fileDiag.FileName != "") // Nur wenn Speicherort ausgewählt / benannt
+            if (fileDiag.FileName != "") // only if path specified
             {
-                System.IO.FileStream fileStream = (System.IO.FileStream)fileDiag.OpenFile(); // Neuer Output-Filestream / Schreibt auf ausgewählte Datei/Neue Datei
+                System.IO.FileStream fileStream = (System.IO.FileStream)fileDiag.OpenFile(); // new file stream, writes to file / creates new file
                 switch (fileDiag.FilterIndex) //Betrachtet auf 1-basierenden Filterindex für Dateiformate
                 {
                     // Speichern der Bitmap in ausgewählten Formaten
                     case 1: BmpSS.Save(fileStream, ImageFormat.Png); break;
                     case 2: BmpSS.Save(fileStream, ImageFormat.Gif); break;
-                    case 3: BmpSS.Save(fileStream, ImageFormat.Bmp); break; // Unkompremiert; gut für evtl Bild-Bearbeitung
-                    case 4: BmpSS.Save(fileStream, ImageFormat.Jpeg); break; // Nicht zu empfehlen, da schlechte Qualität bei schlechtester Kompression
+                    case 3: BmpSS.Save(fileStream, ImageFormat.Bmp); break; // not compressed; good for pic editing
+                    case 4: BmpSS.Save(fileStream, ImageFormat.Jpeg); break; // not to be recommanded, bad qualitiy with bad compression
                 }
-                fileStream.Close(); //Beendet FileStream und erstellt Datei
+                fileStream.Close(); //closes filestream and show file in file explorer
             }
         }
         #endregion
 
         /// <summary>
-        /// Berechnet das Rechteck aus den beiden Rechteck-Punkten unter Betrachtung
-        /// der OS-Vergrößerung (Scaling bei laptops, tablets etc) 
+        /// calculates rectangle , considering OS magnification (scaling for laptops, tablets)
         /// </summary>
-        /// <param name="resFactor">der vergrößerungsfaktor (default: 1)</param>
-        /// <returns>Rechteck welches den Bildbereich darstellt</returns>
+        /// <param name="resFactor">factor of magnification (default: 1)</param>
+        /// <returns>rectangle as chosen picture area</returns>
         private Rectangle CalcRect(double resFactor)
         {
             return new Rectangle(
@@ -180,7 +172,7 @@ namespace QuickDataUpload
                     (int)(resFactor * Math.Abs(PtDown.Y - PtUp.Y)));
         }
         /// <summary>
-        /// Berechnet das Rechteck aus den beiden Rechteck-Punkten
+        /// calculates the rectangle from two points
         /// </summary>
         /// <returns></returns>
         private Rectangle CalcRect() { return CalcRect(1); }
@@ -188,13 +180,13 @@ namespace QuickDataUpload
         #region ErrorHandlingDerBildschirmaufloesung
         
         /// <summary>
-        /// Berechnet die Screenskalierung von mobilen windows geräten. Liest aus der Registry aus.
+        /// reads screen scaling in win mobile devices from registry
         /// </summary>
         /// <returns>default: 1</returns>
         private double CalcScreenRes() 
         {
             double currentDPI = (int)
-                (Registry.GetValue("HKEY_CURRENT_USER\\Control Panel\\Desktop", "LogPixels", null) ?? // <= win 8.1 u. älter
+                (Registry.GetValue("HKEY_CURRENT_USER\\Control Panel\\Desktop", "LogPixels", null) ?? // <= win 8.1 and older
                 Registry.GetValue("HKEY_CURRENT_USER\\Control Panel\\Desktop\\WindowMetrics", "AppliedDPI", null) //win 10
                 ?? ExecuteRegWarning());
 
@@ -202,11 +194,11 @@ namespace QuickDataUpload
         }
         
         /// <summary>
-        /// Thread, der den benutzer warnt, dass es möglicherweise probleme mit dem Auslesen der Auflösung geben hat
+        /// coroutine that warns user about issues reading from registry
         /// </summary>
         private Thread warningThread;
         /// <summary>
-        /// Führt die Warnung aus und gibt den Standardwert 96 DPI zurück
+        /// executes warning and returns default of 96 dpi 
         /// </summary>
         /// <returns></returns>
         private double ExecuteRegWarning()
@@ -216,7 +208,7 @@ namespace QuickDataUpload
         }
 
         /// <summary>
-        /// Teilt dem Benutzer mit, dass der gesuchte Registry-Key nicht gefunden wurde
+        /// tells the user that registry could not be found
         /// </summary>
         private void RegistryWarning() 
         {

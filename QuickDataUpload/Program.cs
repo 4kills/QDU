@@ -14,7 +14,7 @@ namespace QuickDataUpload
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
-            // setzt programm in gang
+            // starts main program
             MainForm optForm = new MainForm();
             icon = optForm.TrayIcon; 
             Application.Run();

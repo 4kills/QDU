@@ -5,36 +5,35 @@ using System.Windows.Forms;
 namespace QuickDataUpload
 {
     /// <summary>
-    /// Klasse zum festlegen der globalen Tastenkombinationen
+    /// class for setting global hotkeys
     /// </summary>
     public partial class KeybindForm : Form
     {
         #region Attribute
 
         /// <summary>
-        /// Liste zum gemeinsamen verwalten aller Hotkey
+        /// list for managing all hotkeys
         /// </summary>
         private List<Hotkey> hkList = new List<Hotkey>();
 
         /// <summary>
-        /// Array, welches alle Methoden für die Hotkeys beinhaltet
-        /// (übergeben durch den Konstruktor von der Haupt(Main)-Form)
+        /// array containing all methods for the hotkeys
         /// </summary>
         private HotkeyHandler[] HKHandlers; 
 
         /// <summary>
-        /// Übergebener Keyhook (wird übergeben von Main-Form) 
+        /// passed keyhook 
         /// </summary>
         private KeyboardHook keyHook;
 
         #endregion 
 
         /// <summary>
-        /// Konstruktor, der die Attribute setzt, die Hotkeys erzeugt 
-        /// und die globalen Tastenkombis beim OS registriert
+        /// constructor, setting attributes, creating hotkeys 
+        /// registering global hotkeys with the OS 
         /// </summary>
-        /// <param name="keyHook">Main-Form KeyboardHook übergeben</param>
-        /// <param name="HKHs">Methoden mit HotkeyHandler signatur übergeben</param>
+        /// <param name="keyHook"></param>
+        /// <param name="HKHs">method with HotkeyHandler signature</param>
         public KeybindForm(KeyboardHook keyHook, params HotkeyHandler[] HKHs)
         {
             this.keyHook = keyHook;
@@ -49,7 +48,7 @@ namespace QuickDataUpload
         }
         
         /// <summary>
-        /// Registriert alle (aktiven) Tastenkombis beim OS. 
+        /// register all active hotkeys with windows
         /// </summary>
         private void SetHotkeys()
         {
@@ -63,7 +62,7 @@ namespace QuickDataUpload
         }
 
         /// <summary>
-        /// Speichert die Settings bei click auf den "Save"-bt
+        /// saves the settings
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -78,8 +77,7 @@ namespace QuickDataUpload
         }
 
         /// <summary>
-        /// Wird überschrieben damit die Form nicht verworfen wird beim
-        /// schließen mit x-button
+        /// overriden so settings arent lost when pressing x 
         /// </summary>
         /// <param name="e"></param>
         protected override void OnFormClosing(FormClosingEventArgs e)

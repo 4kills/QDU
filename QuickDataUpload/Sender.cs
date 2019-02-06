@@ -9,26 +9,25 @@ using QDU.Properties;
 namespace QuickDataUpload
 {
     /// <summary>
-    /// Statische Klasse die gesamtes networking beinhaltet; Bild an server schickt
+    /// static class managing all of the networking
     /// </summary>
     static class Sender
     {
         /// <summary>
-        /// socket des Clients
+        /// socket of the Client
         /// </summary>
         private static Socket socket;
 
         /// <summary>
-        /// ein bool der indiziert, ob der Sendevorgang erfolgreich war
+        /// flag representing successfulness of sending procedure
         /// </summary>
         private static bool success;
 
         /// <summary>
-        /// Etabliert eine Verbindung mit dem Server(Durch optionen festgelegt)
-        /// und sendet diesem das bild. Der Server stellt das bild online bereit 
-        /// und gibt dem Client die URL für das Bild zurück, welche geteilt werden kann
+        /// Establishes connection with server (specified in settings) and sends the pic.
+        /// the server publishes the picture online and returns an url to that pic.
         /// </summary>
-        /// <returns>Gibt exitcode zurück, wenn Vorgang erfolgreich abgeschlossen</returns>
+        /// <returns>returns success flag when done</returns>
         public static bool SendPic()
         {
 
@@ -84,8 +83,7 @@ namespace QuickDataUpload
         }
 
         /// <summary>
-        /// Wartet, bis der server-socket dem Client mitteilt, dass er bereit ist für 
-        /// weitere Daten. Teil des Übertragungsprotokolls
+        /// waits for the server to tell client it is ready for more data, part of protocol
         /// </summary>
         private static void RecApproval()
         {
@@ -93,8 +91,7 @@ namespace QuickDataUpload
         }
 
         /// <summary>
-        /// Teilt dem server-socket mit, dass der Client bereit ist für weitere Daten.
-        /// Teil des Übertragungsprotokolls
+        /// tells the server it can go ahead, part of transmisison protocol
         /// </summary>
         private static void SendApproval()
         {
@@ -119,8 +116,8 @@ namespace QuickDataUpload
         }
 
         /// <summary>
-        /// Erhält die URL vom server-socket als byte-array, dekodiert diese mit ASCII
-        /// und schreibt den string in die Zwischenablage des benutzers
+        /// receives the urls from server-socket as byte-array, decodes it using ASCII
+        /// and writes string to clipboard
         /// </summary>
         private static void ReceiveURL()
         {
@@ -138,18 +135,18 @@ namespace QuickDataUpload
         }
 
         /// <summary>
-        /// Sendet den Byte-array der das Image repräsentiert
+        /// sends Byte-array representing the image
         /// </summary>
-        /// <param name="buffer">Das Bild</param>
+        /// <param name="buffer">the picture</param>
         private static void SendImage(byte[] buffer)
         {
             if (socket.Send(buffer, 0, buffer.Length, 0) < buffer.Length) success = false;
         }
 
         /// <summary>
-        /// Konvertiert ein Bild (Image) zu einem byte-array durch einen byte-stream
+        /// converts the pic (image) to a byte array using a byte stream
         /// </summary>
-        /// <param name="img">Ein Image z.B. bmp</param>
+        /// <param name="img">an Image eg bmp</param>
         /// <returns></returns>
         private static byte[] ImageToByte(Image img)
         {
@@ -161,12 +158,10 @@ namespace QuickDataUpload
         }
 
         /// <summary>
-        /// Sendet die Größe des Bildes an den server-socket, in einem byte-array
-        /// mit der festen größe von 16 byte. Die Größe wird kodiert als ASCII-Satz.
-        /// Diese Größe ist nötig, damit der server weiß,
-        /// wie viel Daten er zu erwarten hat. 
+        /// sends the size of the pic to server using a byte-array
+        /// server needs to know the size to know when to proceed 
         /// </summary>
-        /// <param name="size">Die größe Bild-byte-arrays</param>
+        /// <param name="size">size of the image byte array </param>
         private static void SendMetaData(int size)
         {
             byte[] metaData = new byte[16];
@@ -174,7 +169,7 @@ namespace QuickDataUpload
             {
                 metaData[i] = 0;
             }
-            string strSize = size.ToString(); // 1234
+            string strSize = size.ToString();
             byte[] bStrSize = Encoding.ASCII.GetBytes(strSize);
             for (int i = 0; i < bStrSize.Length; i++)
             {

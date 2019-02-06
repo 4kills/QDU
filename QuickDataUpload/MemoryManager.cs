@@ -5,17 +5,16 @@ using System.Runtime.InteropServices;
 namespace QuickDataUpload
 {
     /// <summary>
-    /// Klasse zum beeinflussen von System/OS Memory-Verteilung
+    /// class to influence System/OS Memory-distribution
     /// </summary>
     public static class MemoryManager
     {
         [DllImport("psapi.dll")]
         static extern int EmptyWorkingSet(IntPtr hwProc);
         
-        // Einige Nutzer werden von zu viel ram-fressenden programmen abgeschreckt
+        // some users dislike programs apparently using too much memory
         /// <summary>
-        /// Minimiert die RAM-Belegung der App, indem ungenutzer RAM zurück
-        /// an das Betriebssystem gegeben wird.
+        /// minimizes RAM-usage of the app by returning unused ram to the OS
         /// </summary>
         public static void MinimizeFootprint()
         {

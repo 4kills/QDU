@@ -6,59 +6,57 @@ using QDU.Properties;
 namespace QuickDataUpload
 {
     /// <summary>
-    /// Klasse, die eine Tastenkombination repräsentiert, mit der eine bestimmte
-    /// Methode aufgerufen werden kann.
+    /// class that represents a key combination which calls a given method
     /// </summary>
     internal sealed class Hotkey
     {
         #region Attribute
         
         /// <summary>
-        /// zählt die anzahl der Hotkey-Instanzen
+        /// counts the amount of hotkey instances
         /// </summary>
         private static int ID;
         /// <summary>
-        /// id der jeweiligen Hotkey-Instanz
+        /// id of the instance
         /// </summary>
         public int id { get; private set; }
         /// <summary>
-        /// checkbox des hotkeys
+        /// checkbox of the hotkey
         /// </summary>
         private CheckBox cb;
         /// <summary>
-        /// modifier-button 1 des hotkeys
+        /// modifier button 1
         /// </summary>
         private Button btMod1;
         /// <summary>
-        /// modifier-button 2 des hotkeys
+        /// modifier button 1
         /// </summary>
         private Button btMod2;
         /// <summary>
-        /// button der eigentlichen Taste
+        /// hotkey 
         /// </summary>
         private Button btKey;
         /// <summary>
-        /// modifier 1, der gedrückt werden muss
+        /// modifier 1, which has to be pressed
         /// </summary>
         private uint mod1;
         /// <summary>
-        /// modifier 2, der gedrückt werden muss
+        /// modifier 2, whichs has to be pressed
         /// </summary>
         private uint mod2;
         /// <summary>
-        /// Taste, die gedrückt werden muss
+        /// key that has to be pressed
         /// </summary>
         private uint key;
         /// <summary>
-        /// Speichert, ob die Tastenkombination ausgeführt werden kann
+        /// saves whether the hotkey can be executed
         /// </summary>
         public bool active { get; private set; }
         
         #endregion 
 
         /// <summary>
-        /// Erstellt den Hotkey mit den dazugehörigen windows.forms.controls
-        /// und der übergeordneten form
+        /// creates hotkey with its windows.forms.controls
         /// </summary>
         /// <param name="cb"></param>
         /// <param name="mod1"></param>
@@ -67,39 +65,33 @@ namespace QuickDataUpload
         /// <param name="f"></param>
         public Hotkey(CheckBox cb, Button mod1, Button mod2, Button key, KeybindForm f)
         {
-            id = ID++; // setzt id und zählt dann instanzen hoch
+            id = ID++; // sets id and increments instances
             this.cb = cb; btMod1 = mod1; btMod2 = mod2; btKey = key;
 
-            // event für ändern der checkbox
+            // event for changing checkbox
             this.cb.CheckedChanged += (s, e) => active = this.cb.Checked;
             
-            //Setzt events für buttonclicks
+            //Sets events for button clicks
             btMod1.Click += HandleButton;
             btMod2.Click += HandleButton;
             btKey.Click += HandleButton;
             
-            //Event für das setzten der Tasten
+            //Event for setting the buttons
             f.KeyDown += HandleKeypress;
             LoadSettings();
             SyncUI();
         }
 
         /// <summary>
-        /// Registriert die Tastenkombi in Windows
+        /// registers the key with windows
         /// </summary>
-        /// <param name="kh">Der windows keyboard hook</param>
-        /// <param name="hkh">Die Methode die ausgeführt werden soll</param>
+        /// <param name="kh">the windows keyboard hook</param>
+        /// <param name="hkh">the method to be called</param>
         public void Register (KeyboardHook kh, HotkeyHandler hkh)
         {
             kh.RegisterHotKey(mod1, mod2, key, hkh); 
         }
 
-        /// <summary>
-        /// Wenn eine Taste gedrückt wird erhält jeder button, der auf eine Taste
-        /// wartet die jeweilig gedrückte Taste zugewiesen. 
-        /// </summary>
-        /// <param name="s"></param>
-        /// <param name="e">Info über die gedrückte Taste</param>
         private void HandleKeypress(object s, KeyEventArgs e)
         {
             e.SuppressKeyPress = true;
@@ -114,10 +106,10 @@ namespace QuickDataUpload
         }
 
         /// <summary>
-        /// Überprüft welcher modifier (ctrl, alt, shift) gedrückt wurde
+        /// checks for pressed modifier (ctrl, alt, shift)
         /// </summary>
         /// <param name="e"></param>
-        /// <returns>returned 0 wenn kein modifier gedrückt wurde</returns>
+        /// <returns>returns zero w/o modifier</returns>
         private uint CheckMod (KeyEventArgs e)
         {
             if (e.KeyValue == (int)Keys.Escape) return 0; 
@@ -128,15 +120,14 @@ namespace QuickDataUpload
         }
 
         /// <summary>
-        /// Wenn ein button gedrückt wird, dann zeigt er den text "Press Key".
-        /// Er kann nun eine Taste empfangen
+        /// sets bvutton to listening state conceiveable by the user 
         /// </summary>
         /// <param name="s"></param>
         /// <param name="e"></param>
         private void HandleButton(object s, EventArgs e) => ((Button)s).Text = "Press Key";
 
         /// <summary>
-        /// Synchronisiert die windows.forms.controls-Texte mit den attributen des hotkeys
+        /// synchronizes with hotkey
         /// </summary>
         private void SyncUI()
         {
@@ -147,7 +138,7 @@ namespace QuickDataUpload
         }
 
         /// <summary>
-        /// Speichert Tastenkombination in das dafür vorgesehene setting
+        /// saves combination to settings
         /// </summary>
         public void SaveSettings()
         {
@@ -163,9 +154,9 @@ namespace QuickDataUpload
         }
 
         /// <summary>
-        /// Kodiert die Tastenkombination des Hotkeys als string 
+        /// encodes combination as string
         /// </summary>
-        /// <returns>Hotkey als string für settings</returns>
+        /// <returns>Hotkey as string for settings</returns>
         private string ToSettings()
         {
             var strB = new StringBuilder("" + mod1);
@@ -176,7 +167,7 @@ namespace QuickDataUpload
         }
 
         /// <summary>
-        /// Läd die Tastenkombination in den Hotkey aus dem Setting
+        /// loads combination from settings into hotkey
         /// </summary>
         private void LoadSettings()
         {
@@ -191,13 +182,12 @@ namespace QuickDataUpload
         }
 
         /// <summary>
-        /// Dekodiert den string, der die Tastenkombination repräsentiert und
-        /// setzt die Attribute
+        /// decodes string representing hotkey
         /// </summary>
         /// <param name="s"></param>
         private void FromSettings(string s)
         {
-            // Beispielsettingstring: "34;23;12:True"
+            // example string in settings: "34;23;12:True"
             mod1 = Convert.ToUInt32(s.Substring(0, s.IndexOf(";")));
             mod2 = Convert.ToUInt32(s.Substring(s.IndexOf(";")+1, s.LastIndexOf(";")-s.IndexOf(";")-1));
             key = Convert.ToUInt32(s.Substring(s.LastIndexOf(";")+1, s.IndexOf(":")-s.LastIndexOf(";")-1));

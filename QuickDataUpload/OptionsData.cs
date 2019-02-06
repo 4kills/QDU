@@ -4,7 +4,7 @@ using QDU.Properties;
 namespace QuickDataUpload
 {
     /// <summary>
-    /// Struktur welche den Server repräsentiert
+    /// structure representing the server
     /// </summary>
     public struct Host
     {
@@ -15,15 +15,13 @@ namespace QuickDataUpload
     }
     
     /// <summary>
-    /// Klasse, die als Pipeline für verschieden gesetzte Optionen fungiert und diese überall
-    /// zugänglich macht. 
+    /// class as pipeline for data, able to be used everywhere
     /// </summary>
     internal static class OptionsData
     {
         private static Host _Host;
         /// <summary>
-        /// Gibt jeder Zeit den aktuellen Host zurück, mit allen nötigen Informationen.
-        /// Diese werden direkt aus den Settings ausgelesen.
+        /// returns the up-to-date host by reading from settings
         /// </summary>
         public static Host MainHost
         {
@@ -41,21 +39,13 @@ namespace QuickDataUpload
             }
         }
         
-        /// <summary>
-        /// Gibt zurück, ob das Bild im modus "online" gemacht wird.
-        /// </summary>
+        
         public static bool Online { get { return Settings.Default.Online; } }
-        /// <summary>
-        /// Gibt zurück, ob das Bild im modus "Clipboard" (Zwischenablage) gemacht wird.
-        /// </summary>
+     
         public static bool ToClipboard { get { return Settings.Default.ToClipboard; } }
-        /// <summary>
-        /// Gibt zurück, ob das Bild im modus "Speichern" gemacht wird.
-        /// </summary>
+     
         public static bool ToDisk { get { return Settings.Default.ToDisk; } }
-        /// <summary>
-        /// Gibt zurück, ob das Programm zusammen mit windows gestartet wird. 
-        /// </summary>
+
         public static bool Autostart { get { return Settings.Default.Autostart; } }
     }
 }

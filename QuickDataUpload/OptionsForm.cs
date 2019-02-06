@@ -6,21 +6,18 @@ using Microsoft.Win32;
 
 namespace QuickDataUpload
 {
-    /// <summary>
-    /// Win-Forms-Klasse zum festlegen der Präferenzen
-    /// </summary>
+    
     public partial class OptionsForm : Form
     {
         /// <summary>
-        /// Von Main-Form übergebene KeybindForm
+        /// keybind form passed by mainform
         /// </summary>
         private KeybindForm keyF;
 
         /// <summary>
-        /// Konstruktor, KeybindForm wird übergeben
-        /// und die Form zeigt sich selbst. 
+        /// form shows itself
         /// </summary>
-        /// <param name="pKeyF">Referenz zur Keybindform</param>
+        /// <param name="pKeyF">pointer to Keybindform</param>
         public OptionsForm(KeybindForm pKeyF)
         {
             keyF = pKeyF; 
@@ -32,7 +29,7 @@ namespace QuickDataUpload
         }
 
         /// <summary>
-        /// Läd die Settings in die UI, damit der Benutzer sieht, was er eingestellt hat
+        /// loads settings to ui for the user to see own settings
         /// </summary>
         private void LoadSettings()
         {
@@ -50,7 +47,7 @@ namespace QuickDataUpload
         }
 
         /// <summary>
-        /// Speichert die angepassten Optionen in die Settings / Daten-Schicht
+        /// saves the adjusted settings to data layer
         /// </summary>
         private void SaveToSettings()
         {
@@ -76,9 +73,8 @@ namespace QuickDataUpload
         }
 
         /// <summary>
-        /// Bei Betätigen dieser Checkbox wird die App in das 
-        /// Windows-Auto-Start-Verzeichnes in der Registry geschrieben
-        /// oder gelöscht
+        /// when checking this option the app is written to or 
+        /// deleted from the autostart in registry 
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -97,7 +93,7 @@ namespace QuickDataUpload
         }
 
         /// <summary>
-        /// Speichert die Settings, schließt und verwirft die Option-Form
+        /// saves settings, closes and disposes form
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -110,7 +106,7 @@ namespace QuickDataUpload
         }
 
         /// <summary>
-        /// Zeigt die Keybind-Form an 
+        /// shows the keybinds form 
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>

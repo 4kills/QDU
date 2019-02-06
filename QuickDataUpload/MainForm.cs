@@ -6,33 +6,31 @@ using System.Reflection;
 namespace QuickDataUpload
 {
     /// <summary>
-    /// Haupt-Windows-Form, die das Tray Icon stellt und code verwaltet -> "Steuerung"
+    /// main window with the tray icon and control class
     /// </summary>
     public partial class MainForm : Form
     {
         #region Attribute
         /// <summary>
-        /// user32.dll windows keyboard api. Wird benutzt für globale Tastenkombis,
-        /// die in jedem Programm aktivieren. 
+        /// user32.dll windows keyboard api. used for global hotkeys
         /// </summary>
         private KeyboardHook globalHotKeyHook = new KeyboardHook(); //System API win hooks
         /// <summary>
-        /// Option-Windows-Form zum Einstellen von verschiedenen Preferenzen 
+        /// Option-Windows-Form for preferences
         /// </summary>
         private OptionsForm oF;
         /// <summary>
-        /// Windows-Form zum Auswählen von globalen tastenkombinationen
+        /// Windows-Form to create global hotkeys
         /// </summary>
         private KeybindForm keyF;
         /// <summary>
-        /// Polymorphe Camera-Klasse zum Aufnehmen von versch. Bildschirmteilen
+        /// Polymorph camera class for different snap modes 
         /// </summary>
         private Camera cam;
         #endregion
 
         /// <summary>
-        /// Konstruktor, erzeugt tray-icon und neue keybind-form welche die tastenkombis
-        /// bei Programmstart im OS registriert
+        /// constructor, creates tray-icon and new keybind-form which registers glob hotkeys
         /// </summary>
         public MainForm()
         {
@@ -47,11 +45,10 @@ namespace QuickDataUpload
         }
 
         /// <summary>
-        /// Bei click auf ein item des tray icons. Öffnet Optionen, verlässt Programm,
-        /// erzeugt neue AreaCamera oder neue FullCamera
+        /// triggers when tray icon is clicked. shows controls and triggers a sceen capture
         /// </summary>
         /// <param name="sender"></param>
-        /// <param name="e">Info zu geclicktem Item</param>
+        /// <param name="e">info for pressed items</param>
         private void TrayContextMenuStrip_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
         {
 
@@ -79,12 +76,11 @@ namespace QuickDataUpload
             catch { }
         }
 
-        #region Methoden, die bei jeweiliger Tastenkombination ausgeführt werden
+        #region Methods being triggered for specific hot keys
 
         /// <summary>
-        /// Methode für Tastenkombi.
-        /// Überprüft, ob bereits eine camera fotografiert, falls nicht,
-        /// erzeugt neue areacamera die ein Bildschirmfoto macht
+        /// Method for hotkey.
+        /// checks whether a snap is being taken, if not tries to take one for an area
         /// </summary>
         /// <param name="s"></param>
         /// <param name="e"></param>
@@ -96,9 +92,8 @@ namespace QuickDataUpload
         }
 
         /// <summary>
-        /// Methode für Tastenkombi.
-        /// Überprüft, ob bereits eine camera fotografiert, falls nicht,
-        /// erzeugt neue fullcamera die ein Bildschirmfoto macht 
+        /// Method for hotkey.
+        /// checks whether a snap is being taken, if not tries to take one for all screens
         /// </summary>
         /// <param name="s"></param>
         /// <param name="e"></param>
@@ -109,8 +104,8 @@ namespace QuickDataUpload
         }
 
         /// <summary>
-        /// Methode für Tastenkombi.
-        /// Wechselt modus zu "online"
+        /// Method for hotkey.
+        /// changes mode to online
         /// </summary>
         /// <param name="s"></param>
         /// <param name="e"></param>
@@ -121,8 +116,8 @@ namespace QuickDataUpload
         }
 
         /// <summary>
-        /// Methode für Tastenkombi.
-        /// Wechselt modus zu "save to disk"
+        /// Method for hotkey.
+        /// changes mode to save to disk
         /// </summary>
         /// <param name="s"></param>
         /// <param name="e"></param>
@@ -133,8 +128,8 @@ namespace QuickDataUpload
         }
 
         /// <summary>
-        /// Methode für Tastenkombi.
-        /// Wechselt modus zu "Clipboard"
+        /// Method for hotkey.
+        /// changes mode to clipboard
         /// </summary>
         /// <param name="s"></param>
         /// <param name="e"></param>

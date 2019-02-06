@@ -3,23 +3,19 @@ using System.Windows.Forms;
 
 namespace QuickDataUpload
 {
-    /// <summary>
-    /// Fotografiert nur einen ausgewählten bereich der Bildschirme. Erbt von Camera.
-    /// Sehr polymorph
-    /// </summary>
+    
     sealed class AreaCamera : Camera
     {
         /// <summary>
-        /// Eine Liste der benötigten windows.forms die zum bild machen benutzt werden
+        /// list of necessary win.forms to choose area
         /// </summary>
         List<ClickForm> listClickForm = new List<ClickForm>();
         /// <summary>
-        /// sämtlicher code wird bei erzeugung der Instanz ausgeführt. 
+        /// all of the code is run at initialization
         /// </summary>
         public AreaCamera()
         {
-            // loopt durch die virtuellen Bildschirme und erschafft eine clickForm für jeden bildschirm.
-            // Diese werden der listClickForm-Liste hinzugefügt
+            // loops through virtual screens and creates a form for each
             foreach (var screen in Screen.AllScreens) //TODO: Can currently cause problems with certain graphics cards options!
             {
                 var clickForm = new ClickForm();
@@ -34,9 +30,9 @@ namespace QuickDataUpload
         }
 
         /// <summary>
-        /// event-handler für das OnCapture-event der clickForm's. 
-        /// Setzt den ausgewählten Bereich als Punkte und vernichtet alle clickForm's.
-        /// Wenn nicht esc gedrückt wurde wir das bild mit Snap() gemacht.
+        /// event-handler for OnCapture-event of clickForms. 
+        /// sets the chosen area and disposes of forms 
+        /// can be cancelled with esc
         /// </summary>
         /// <param name="cF"></param>
         private void OnSelectionHandle(ClickForm cF)
