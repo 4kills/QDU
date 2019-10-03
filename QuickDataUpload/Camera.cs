@@ -44,8 +44,7 @@ namespace QuickDataUpload
             // error if both points are the same
             if (PtDown == PtUp) return false;
 
-            double resFactor = CalcScreenRes();
-            Rectangle rect = CalcRect(resFactor);
+            Rectangle rect = CalcRect(1);
 
             if (rect.Width == 0 || rect.Height == 0) return false;
             
@@ -178,21 +177,7 @@ namespace QuickDataUpload
         private Rectangle CalcRect() { return CalcRect(1); }
 
         #region ErrorHandlingDerBildschirmaufloesung
-        
-        /// <summary>
-        /// reads screen scaling in win mobile devices from registry
-        /// </summary>
-        /// <returns>default: 1</returns>
-        private double CalcScreenRes() 
-        {
-            double currentDPI = (int)
-                (Registry.GetValue("HKEY_CURRENT_USER\\Control Panel\\Desktop", "LogPixels", null) ?? // <= win 8.1 and older
-                Registry.GetValue("HKEY_CURRENT_USER\\Control Panel\\Desktop\\WindowMetrics", "AppliedDPI", null) //win 10
-                ?? ExecuteRegWarning());
-
-            return currentDPI / 96f; // calculates factor. 96 are standardized 100% res
-        }
-        
+                      
         /// <summary>
         /// coroutine that warns user about issues reading from registry
         /// </summary>
