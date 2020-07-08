@@ -39,6 +39,18 @@ namespace QuickDataUpload
             }
         }
         
+        public static bool RemLoc { get { return Settings.Default.RemLoc; } }
+
+        public static string LastLoc
+        {
+            get { return Settings.Default.LastLoc; }
+
+            set
+            {
+                Settings.Default.LastLoc = value;
+                Settings.Default.Save(); 
+            }
+        }
         
         public static bool Online { get { return Settings.Default.Online; } }
      

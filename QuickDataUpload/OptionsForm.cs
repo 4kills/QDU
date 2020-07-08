@@ -33,6 +33,7 @@ namespace QuickDataUpload
         /// </summary>
         private void LoadSettings()
         {
+            cb_remember.Checked = Settings.Default.RemLoc; 
             rbURL.Checked = Settings.Default.URL;
             rbIPv4.Checked = !Settings.Default.URL;
             rbOnline.Checked = Settings.Default.Online;
@@ -67,7 +68,8 @@ namespace QuickDataUpload
             Settings.Default.Online = rbOnline.Checked;
             Settings.Default.ToClipboard = rbClipboard.Checked;
             Settings.Default.ToDisk = rbDiskSave.Checked;
-            Settings.Default.Autostart = chbAutostart.Checked; 
+            Settings.Default.Autostart = chbAutostart.Checked;
+            Settings.Default.RemLoc = cb_remember.Checked;
 
             Settings.Default.Save();
         }

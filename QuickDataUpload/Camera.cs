@@ -6,6 +6,7 @@ using System.Threading;
 using System.Windows.Forms;
 using System.Media;
 using System.Reflection;
+using System.IO;
 
 namespace QuickDataUpload
 {
@@ -125,13 +126,36 @@ namespace QuickDataUpload
         /// </summary>
         public void SaveToDisk()
         {
+            bool rem = OptionsData.RemLoc;
+            if (!rem || OptionsData.LastLoc.Equals("null"))
+            {
+                openFileDiag();
+                return;
+            }
+
+            saveToLast(); 
+        }
+
+        private void saveToLast()
+        {
+            var defaultFormat = ImageFormat.Png;
+            var defaultFormatString = "png"; 
+
+            var dir = OptionsData.LastLoc;
+            var name = DateTime.Now.ToString("yyyy-MM-dd_HH-mm-ss_fff") + "." + defaultFormatString;
+            var path = Path.Combine(dir, name);
+
+            BmpSS.Save(path, defaultFormat); 
+        }
+
+        private void openFileDiag ()
+        {
             fileDiag = new SaveFileDialog();
             fileDiag.FileName = "Unbenannt";
             fileDiag.Filter = " PNG |*.png| GIF |*.gif| Unkomprimierte Bitmap |*.bmp| JPEG (nicht empfohlen) |*.jpg"; //Dateiformate
             fileDiag.Title = "Speichern des Koordinatensystems";
             fileDiag.FileOk += FileDiag_FileOk; // event, dass bei erfolgreichem auswählen ausgeführt wird
             fileDiag.ShowDialog();
-
         }
 
         /// <summary>
@@ -152,6 +176,7 @@ namespace QuickDataUpload
                     case 3: BmpSS.Save(fileStream, ImageFormat.Bmp); break; // not compressed; good for pic editing
                     case 4: BmpSS.Save(fileStream, ImageFormat.Jpeg); break; // not to be recommanded, bad qualitiy with bad compression
                 }
+                OptionsData.LastLoc = Path.GetDirectoryName(fileDiag.FileName); 
                 fileStream.Close(); //closes filestream and show file in file explorer
             }
         }

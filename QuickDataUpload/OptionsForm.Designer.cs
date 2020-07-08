@@ -43,6 +43,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.lbToken = new System.Windows.Forms.Label();
+            this.cb_remember = new System.Windows.Forms.CheckBox();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -84,12 +85,13 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.cb_remember);
             this.groupBox1.Controls.Add(this.rbClipboard);
             this.groupBox1.Controls.Add(this.rbDiskSave);
             this.groupBox1.Controls.Add(this.rbOnline);
             this.groupBox1.Location = new System.Drawing.Point(12, 110);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(200, 96);
+            this.groupBox1.Size = new System.Drawing.Size(260, 96);
             this.groupBox1.TabIndex = 4;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Mode";
@@ -185,6 +187,16 @@
             this.lbToken.TabIndex = 10;
             this.lbToken.Text = "Sets when using online";
             // 
+            // cb_remember
+            // 
+            this.cb_remember.AutoSize = true;
+            this.cb_remember.Location = new System.Drawing.Point(117, 42);
+            this.cb_remember.Name = "cb_remember";
+            this.cb_remember.Size = new System.Drawing.Size(137, 17);
+            this.cb_remember.TabIndex = 3;
+            this.cb_remember.Text = "Remember my Location";
+            this.cb_remember.UseVisualStyleBackColor = true;
+            // 
             // OptionsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -227,5 +239,6 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label lbToken;
+        private System.Windows.Forms.CheckBox cb_remember;
     }
 }
