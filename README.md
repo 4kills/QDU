@@ -50,6 +50,21 @@ In the options panel (accessible from the tray icon) you may enter an URL on whi
 
 # Usage
 
+QDU was primarily designed to be used with hotkeys which can be set under Options > Keybinds. The Options can be accessed by right-clicking the tray icon. 
+
+Hotkeys allow for a quicker usage but are not necessary - screenshots can also be taken from the tray icon. 
+
+Once the hotkeys are set, you can press them to activate taking a screenshot from anywhere and of anything you like! For the area screenshot just press your hotkey and left-click drag the area you want to screenshot. 
+Immediately after releasing the mouse button the screenshot will be saved to your clipboard, your disk, or the connected webserver, which will then return a link to the screenshot to your clipboard which may be pasted anywhere! 
+
+The `Mode` of saving can be configured in the `Options` panel: 
+
+- `Save to Disk`: Your file browser will open to prompt you to choose a location upon every screenshot. You can circumvent this hassle by checking `Remember my Location`, which will then save all subsequent screenshots to the last chosen location. 
+
+- `Save to Clipboard`: Upon taking a screenshot this screenshot will be saved to your clipboard, which can then be pasted to software supporting pictures from clipboards (like Discord, Skype, WhatsApp Web, etc...). 
+
+- `Online`: Upon taking a screenshot that screenshot will be uploaded to the provided web server, which will then host the picture and return a link to it. This link will be accessible from your cliboard, so it can be pasted to every text input field. Everyone with the link can view the picture.  
+
 # Privacy and Security Notice
 
 # Notes
